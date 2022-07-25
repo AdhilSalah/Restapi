@@ -1,5 +1,5 @@
 from rest_framework.generics import CreateAPIView
-from pro_user.serializers import UserRegistrationSerializer,SignInSerializer
+from pro_user.serializers import UserRegistrationSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 from rest_framework.response import Response
@@ -30,32 +30,28 @@ class UserRegistrationView(CreateAPIView):
         return Response(response, status=status_code)
 
 
-class signin(APIView):
-    permission_classes = ()
-    authentication_classes = ()
-
-    def post(self, request):
-        received_json_data=request.data
-        serializer = SignInSerializer(data=received_json_data)
-        if serializer.is_valid():
-            user = authenticate(
-                request, 
-                email=received_json_data['email'], 
-                password=received_json_data['password'])
-            if user is not None:
-                refresh = RefreshToken.for_user(user)
-                return JsonResponse({
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                    'success':'login success',
-                    
-                }, status=200)
-            else:
-                return JsonResponse({
-                    'message': 'invalid username or password',
-                }, status=403)
-        else:
-            return JsonResponse({'message':serializer.errors}, status=400)     
+# class signin(APIView):
+#     permission_classes = ()MyTokenObtainPairView
+#         received_json_data=request.data
+#         serializer = SignInSerializer(data=received_json_data)
+#         if serializer.is_valid():
+#             user = authenticate(
+#                 request, 
+#                 email=received_json_data['email'], 
+#                 password=received_json_data['password'])
+#             if user is not None:
+#                 refresh = RefreshToken.for_user(user)
+#                 return JsonResponse({
+#                     'refresh': str(refresh),
+#                     'access': str(refresh.access_token),
+#                     'success':'login success',
+#                 }, status=200)
+#             else:
+#                 return JsonResponse({
+#                     'message': 'invalid username or password',
+#                 }, status=403)
+#         else:
+#             return JsonResponse({'message':serializer.errors}, status=400)     
 
 
 from .serializers import MyTokenObtainPairSerializer

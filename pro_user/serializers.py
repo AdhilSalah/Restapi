@@ -49,9 +49,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 
-class SignInSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=255, required=True)
-    password = serializers.CharField(max_length=255, required=True, write_only=True)
+# class SignInSerializer(serializers.Serializer):
+#     email = serializers.CharField(max_length=255, required=True)
+#     password = serializers.CharField(max_length=255, required=True, write_only=True)
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
